@@ -1,0 +1,18 @@
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host  # All ports Plex uses are exposed locally.
+    labels:
+      webUI: "http://localhost:32400/web" # URL to setup Plex.
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      - VERSION=docker
+      - PLEX_CLAIM=     # Optional. UI should help you claim it anyway.
+    volumes:
+      - ${CONFIG_ROOT}/plex:/config
+      - ${CONFIG_ROOT}/plex/transcode:/transcode
+      - ${DATA_ROOT}:/data
+    restart: unless-stopped

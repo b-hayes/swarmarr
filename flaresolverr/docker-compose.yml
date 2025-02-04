@@ -1,0 +1,13 @@
+
+services:
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - TZ=${TIMEZONE}
+    ports:
+      - 8191:8191
+    # network_mode: synobridge
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped

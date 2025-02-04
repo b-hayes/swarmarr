@@ -1,0 +1,33 @@
+services:
+  plex:
+    extends:
+      file: plex/docker-compose.yml
+      service: plex
+  radarr:
+    extends:
+      file: radarr/docker-compose.yml
+      service: radarr
+  sonarr:
+    extends:
+      file: sonarr/docker-compose.yml
+      service: sonarr
+  sabnzbd:
+    extends:
+      file: sabnzbd/docker-compose.yml
+      service: sabnzbd
+  prowlarr:
+    extends:
+      file: prowlarr/docker-compose.yml
+      service: prowlarr
+  overseerr:
+    extends:
+      file: overseerr/docker-compose.yml
+      service: overseerr
+  flaresolverr:
+    extends:
+      file: flaresolverr/docker-compose.yml
+      service: flaresolverr
+# TODO: need to fix the network config so they can talk to each other by name instead of using ip addresses.
+networks:
+  default:
+    name: swarmarr
