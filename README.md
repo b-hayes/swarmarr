@@ -26,7 +26,7 @@ Create some folders for all your stuff, mine looks like this:
         - incomplete/
 ```
 Its a lot easier if all services can access the same files and map to the same `/data/` path because they will 
-communicate with each other such as the donwloader reporting where it saved files to radarr to move into plex etc.
+communicate file paths with each other, eg: donwloader telling radarr it saved a file for it to move into plex library.
 
  I put configs on the faster SSD, I use my home folder like so:
  
@@ -112,7 +112,7 @@ Doesnt need configuring just [add it as proxy indexer in Prowlarr](#adding-flare
 - Now go back to [Pworlarr app](#adding-apps-to-prowlarr) instruction to connect raddar.
 
 ### Sonarr
-Basically just do the same thing as [Radarr](#radarr) but use `tv` tag and `/data/.../tv/` folder as media root.
+Basically just follow the [Radarr](#radarr) instructions but use `tv` tag and `/data/.../tv/` folder as media root.
 
 ### Spanning multiple Drives with redundancy
 
