@@ -2,7 +2,7 @@
 
 A stack of docker containers from https://www.linuxserver.io/ to automate your media server.
 
-This began because I really love unraid but I also needed to use the system as a desktop PC and unraids GUI mode just does not work at all for me.
+This began because I really love Unraid, but I also needed to use the system as a desktop PC and unraids GUI mode just does not work at all for me.
 
 ## Requirements
 
@@ -25,8 +25,8 @@ Create some folders for all your stuff, mine looks like this:
         - completed/
         - incomplete/
 ```
-Its a lot easier if all services can access the same files and map to the same `/data/` path because they will 
-communicate file paths with each other, eg: donwloader telling radarr it saved a file for it to move into plex library.
+It's a lot easier if all services can access the same files and map to the same `/data/` path because they will 
+communicate file paths with each other, eg: downloader telling radarr it saved a file for it to move into plex library.
 
  I put configs on the faster SSD, I use my home folder like so:
  
@@ -41,7 +41,7 @@ Start the swarm:
 ```SHELL
 docker compose up -d
 ```
-You should see a bunch of donloading and installing etc and then confirmation that all services are running.
+You should see a bunch of downloading and installing and then confirmation that all services are running.
 You should see a bunch of folders appear in the config root for each service.
 You want to back these up if you reinstall your OS.
 
@@ -134,6 +134,22 @@ Good article on this here: https://perfectmediaserver.com/02-tech-stack/snapraid
 docker compose down
 docker compose down -v # -v to delete the containers volume as well.
 ```
+
+# Backup and restore.
+Your configs being on the faster ssd in your home folder could get wiped out from an OS reinstall, so I recommend
+having a regular backup of the configs folder copied to the array jic.
+
+```shell
+sudo crontab -e # opens scheduled tasks config on linux
+```
+I typically add the following:
+```config
+# backup configs every day at 3pm
+0 15 * * * cp -rp /home/brad/repo/configs /array/backup/configs-$(date +'%Y-%m-%d-%H-%M-%S')
+```
+
+To restore your setup on a new OS/PC just install docker again, copy the configs back where it was before,
+and run docker compose up and your services should resume as they were.
 
 ## Useful info:
 
