@@ -14,6 +14,11 @@ otherise use [Docker desktop](https://docs.docker.com/get-started/get-docker/).
 
 ## Getting started
 
+How to automount HD's where you want them in Ubuntu.
+https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup
+
+Make your big media drive mount to a specific path eg `/array`.
+
 Create some folders for all your stuff, mine looks like this:
 
  ```
@@ -114,12 +119,41 @@ Doesn't need configuring just [add it as proxy indexer in Prowlarr](#adding-flar
 ### Sonarr
 Basically just follow the [Radarr](#radarr) instructions but use `tv` tag and `/data/.../tv/` folder as media root.
 
-## Sharing via SMB (on Ubuntu).
+## Sharing Folders on the network via SMB (on Ubuntu).
+
+Sharing folders on linux for some reason is not a built-in thing for most distros.
+
+Here is the entire list of steps I had to track down to get it working...
+
 Install SMB
 ```shell
 sudo apt-get install samba
 ```
 
+Install file sharing options for Nautilus (the file explorer).
+```shell
+sudo apt install nautilus-share
+```
+
+Give yourself permissions to create shared folders or Nautilus will get errors.
+```shell
+sudo gpasswd -a $USER sambashare
+```
+
+Give yourself permission to share files you don't own (needed if you brought drives over from unraid).
+
+Open the smb config:
+```shell
+sudo nano /etc/samba/smb.conf
+```
+Scroll to where it says `[ global ]` and write `usershare owner only = false` underneath like so:
+```text
+[global]
+usershare owner only = false
+```
+
+Log off and log back in.
+Now you should be able to just right-click on a folder and see sharing options.
 
 ## Spanning multiple Drives with redundancy
 
@@ -155,8 +189,3 @@ I typically add the following:
 
 To restore your setup on a new OS/PC just install docker again, copy the configs back where it was before,
 and run docker compose up and your services should resume as they were.
-
-## Useful info:
-
-How to automount HD's where you want them in Ubuntu.
-https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup
