@@ -96,7 +96,7 @@ Replace localhost and keep the rest. eg: `http://192.168.1.21:9696` instead of `
 
 ### Flaresolverr
 This stops Cloudlfare blocking us from getting to our donwloadz.
-Doesnt need configuring just [add it as proxy indexer in Prowlarr](#adding-flaresolverr-proxy).
+Doesn't need configuring just [add it as proxy indexer in Prowlarr](#adding-flaresolverr-proxy).
 
 ### Radarr
 - Choose forms (login page) as authentification method.
@@ -114,7 +114,14 @@ Doesnt need configuring just [add it as proxy indexer in Prowlarr](#adding-flare
 ### Sonarr
 Basically just follow the [Radarr](#radarr) instructions but use `tv` tag and `/data/.../tv/` folder as media root.
 
-### Spanning multiple Drives with redundancy
+## Sharing via SMB (on Ubuntu).
+Install SMB
+```shell
+sudo apt-get install samba
+```
+
+
+## Spanning multiple Drives with redundancy
 
 The key ffeature I liked about Unraid was its storage solution.
 You can replicate it with the following tools.
@@ -125,8 +132,6 @@ for sharing mounts across drives.
 
 You do not need this, but its worth looking into after you get setup.
 Good article on this here: https://perfectmediaserver.com/02-tech-stack/snapraid/
-
-
 
 ## Stopping the swarm
 
