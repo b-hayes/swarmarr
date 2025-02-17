@@ -2,22 +2,23 @@
 
 A stack of docker containers from https://www.linuxserver.io/ to automate your media server.
 
-This began because I really love Unraid, but I also needed to use the system as a desktop PC and unraids GUI mode just does not work at all for me.
+This began because I really love Unraid, but I also needed to use the system as a desktop PC and
+the Unraid GUI mode just does not work at all for me.
 
 ## Requirements
 
 Any computer/platform that can run docker containers.
 
 Install [Docker Engine](https://docs.docker.com/engine/install/) for Linux,
-otherise use [Docker desktop](https://docs.docker.com/get-started/get-docker/).
+otherwise use [Docker desktop](https://docs.docker.com/get-started/get-docker/).
 
 
 ## Getting started
 
-How to automount HD's where you want them in Ubuntu.
+How to automount drives to specific paths op boot in Ubuntu.
 https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup
 
-Make your big media drive mount to a specific path eg `/array`.
+I mount my big HD to `/array` (and plan to share this path with other drives in future).
 
 Create some folders for all your stuff, mine looks like this:
 
@@ -57,13 +58,13 @@ Open the following links to configure each service:
  - Radarr       http://localhost:7878
  - Sonarr       http://localhost:8989
  - Prowlarr     http://localhost:9696
- - Oversearr    http://localhost:5055
+ - Overseerr    http://localhost:5055
  - flaresolverr http://localhost:8191
 
- When browsing for paths they should all have `/data` path containting your DATA_ROOT files.
+ When browsing for paths they should all have `/data` path containing your DATA_ROOT files.
 
 ### Plex
-- Prettt self explanitory as long as your paths are set correctly your good.
+- Pretty self-explanatory, access url to set up, as long as your paths are set correctly your good.
 
 ### SABnzbd
 - Add your usenet account details click test and save.
@@ -73,19 +74,19 @@ Open the following links to configure each service:
 
 ### Prowlarr
 From the initial setup wizard:
-- Set authentification method to Forms (login page).
+- Set authentication method to Forms (login page).
 - Add a username and password hit save.
 - Go to Indexers (top one, not the one under settings) and add indexer.
-  - Search for nzb geek or whatever you are using / have an account for or somehting free.
+  - Search for nzb geek or whatever you are using / have an account for or something free.
     - If selecting a free server check for notes about supporting flaresolverr connections.
   - Add your api key for your account
   - Add `movies` and `tv` tags.
-  - Hit test and save if greeen tick appears.
+  - Hit test and save if green tick appears.
 
 Go setup [Radarr](#radarr) and [Sonarr](#sonarr) first and them come back here to finish.
 
 #### Adding apps to prowlarr:
-- Goto Settings->Apps, click add, click radarr or sonarr depening on what your here for.
+- Goto Settings->Apps, click add, click radarr or sonarr depending on what your here for.
 - Add `movies` tag for radarr or `tv` tag for sonarr (optional?).
 - Set servers to your computers local ip address.
 Replace localhost and keep the rest. eg: `http://192.168.1.21:9696` instead of `http://localhost:9696`
@@ -100,21 +101,21 @@ Replace localhost and keep the rest. eg: `http://192.168.1.21:9696` instead of `
 - Click test and save if you see a green tick.
 
 ### Flaresolverr
-This stops Cloudlfare blocking us from getting to our donwloadz.
+This stops Cloudflare blocking us from getting to our download.
 Doesn't need configuring just [add it as proxy indexer in Prowlarr](#adding-flaresolverr-proxy).
 
 ### Radarr
-- Choose forms (login page) as authentification method.
+- Choose forms (login page) as authentication method.
 - Add a username and password and hit save.
-- Add SABnzb as your donwloader:
-    - Goto Settings->Download clients, clikc add, click SABnzbd.
-    - Set Host to to your computers local ip address.
-    - Set API key the one you copied from SABnzbd's general settings.
+- Add SABnzbd as your downloader:
+    - Goto Settings->Download clients, click add, click SABnzbd.
+    - Set Host to your computers local ip address.
+    - Set API key the one you copied from SABnzbd general settings.
     - Add a `movies` tag (optional?).
 - Go to Settings->General and copy the API key.
 - Go to Settings->Media Management, scroll to the bottom and add a root folder.
   - add your `/data/.../movies` folder.
-- Now go back to [Pworlarr app](#adding-apps-to-prowlarr) instruction to connect raddar.
+- Now go back to [Prowlarr app](#adding-apps-to-prowlarr) instruction to connect radarr.
 
 ### Sonarr
 Basically just follow the [Radarr](#radarr) instructions but use `tv` tag and `/data/.../tv/` folder as media root.
@@ -147,7 +148,7 @@ Open the smb config:
 sudo nano /etc/samba/smb.conf
 ```
 Scroll to where it says `[ global ]` and write `usershare owner only = false` underneath like so:
-```text
+```conf
 [global]
 usershare owner only = false
 ```
@@ -155,9 +156,13 @@ usershare owner only = false
 Log off and log back in.
 Now you should be able to just right-click on a folder and see sharing options.
 
+## Enabling access via computer name and mDNS routing.
+Accessing your server via computer-name.local as unraid did is common, but it's blocked by default on Ubuntu.
+I actually don't know how, but setting up smb file sharing above will enable it you.
+
 ## Spanning multiple Drives with redundancy
 
-The key ffeature I liked about Unraid was its storage solution.
+The key feature I liked about Unraid was its storage solution.
 You can replicate it with the following tools.
 
 [SnapRaid](https://www.snapraid.it/) for parity backup
