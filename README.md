@@ -156,6 +156,11 @@ usershare owner only = false
 Log off and log back in.
 Now you should be able to just right-click on a folder and see sharing options.
 
+## Creating a user for share folders only
+Ubuntu does a windows like setup where, a user account must exist on the machine to get access to stuff.
+But you can create another smb share manually, but it's a pain in the ass.
+Looking for a better option than using command line for this (and might build one).
+
 ## Enabling access via computer name and mDNS routing.
 Accessing your server via computer-name.local as unraid did is common, but it's blocked by default on Ubuntu.
 I actually don't know how, but setting up smb file sharing above will enable it you.
