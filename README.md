@@ -199,3 +199,17 @@ I typically add the following:
 
 To restore your setup on a new OS/PC just install docker again, copy the configs back where it was before,
 and run docker compose up and your services should resume as they were.
+
+## Firewall
+
+At some point you might want to enable the firewall to protect your server and you might notice,
+SMB file sharing slows to a crawl.
+
+SMB typically uses ports 137, 138, 139, and 445. You need to allow these ports through the firewall.
+
+```shell
+sudo ufw allow 137/udp
+sudo ufw allow 138/udp
+sudo ufw allow 139/tcp
+sudo ufw allow 445/tcp
+```
