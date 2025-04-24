@@ -5,7 +5,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Australia/Hobart
+      - TZ=${TIMEZONE}
     volumes:
       - ${CONFIG_ROOT}/radarr:/config
       - ${DATA_ROOT}:/data
