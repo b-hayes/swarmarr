@@ -7,6 +7,10 @@ services:
     extends:
       file: radarr/docker-compose.yml
       service: radarr
+  lidarr:
+    extends:
+      file: lidarr/docker-compose.yml
+      service: lidarr
   sonarr:
     extends:
       file: sonarr/docker-compose.yml
