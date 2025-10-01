@@ -27,6 +27,10 @@ services:
     extends:
       file: overseerr/docker-compose.yml
       service: overseerr
+  jellyfin:
+    extends:
+      file: jellyfin/docker-compose.yml
+      service: jellyfin
   flaresolverr:
     extends:
       file: flaresolverr/docker-compose.yml

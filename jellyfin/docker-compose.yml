@@ -1,0 +1,15 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    network_mode: host  # All ports Jellyfin uses are exposed locally. (web ui uses 8096)
+    labels:
+      webUI: "http://localhost:8096" # URL to setup Jellyfin.
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    volumes:
+      - ${CONFIG_ROOT}/jellyfin:/config
+      - ${DATA_ROOT}:/data
+    restart: unless-stopped
