@@ -2,6 +2,9 @@
 
 A stack of docker containers from https://www.linuxserver.io/ to automate your media server.
 
+This system automates media library management by monitoring your media sources and organizing content based on your preferences.
+It can automatically upgrade to better quality versions and track new releases.
+
 This began because I really love Unraid, but I also needed to use the system as a desktop PC and
 the Unraid GUI mode just does not work at all for me.
 
@@ -117,8 +120,25 @@ Doesn't need configuring just [add it as proxy indexer in Prowlarr](#adding-flar
   - add your `/data/.../movies` folder.
 - Now go back to [Prowlarr app](#adding-apps-to-prowlarr) instruction to connect radarr.
 
+- **Extra settings I recommend**:
+  - Go to Settings->Profiles and set the Language to "Original" instead of "English" (radarr only).
+    - This prevents rejecting releases just because they're not available in English. Just means you rely on subtitles instead of dubs. Most cases this is better anyway.
+  - In Settings->Media Management, enable "Unmonitor Deleted Movies" to prevent it re-downloading, if delete stuff via Plex on your TV.
+  - If your TV doesn't support Dolby Vision, create a release profile to reject DV releases:
+    - Go to Settings->Profiles->Release Profiles, click add.
+    - Add this regex to "Must Not Contain": `/DV ^|^(?=.*\b(DV|dovi|Dolby[-_. ]?Vision)\b)(?!.*\b(HDR(10(P(lus)?)?)?|HULU|BluRay)\b)/i`
+    - This prevents downloading files your TV can't properly display.
+
 ### Sonarr
 Basically just follow the [Radarr](#radarr) instructions but use `tv` tag and `/data/.../tv/` folder as media root.
+
+## Troubleshooting
+
+### movie/show not downloading?
+If the Activity section in Radarr/Sonarr doesn't show useful information:
+- Go to **Wanted → Missing** in Radarr or Sonarr and you will likely see the one you want.
+- Click on the title and then click **Interactive Search** (magnifying glass icon)
+- This shows all releases found and the rejection reason next to each one (language, quality, etc.)
 
 ## Sharing Folders on the network via SMB (on Ubuntu).
 
@@ -176,6 +196,12 @@ for sharing mounts across drives.
 
 You do not need this, but its worth looking into after you get setup.
 Good article on this here: https://perfectmediaserver.com/02-tech-stack/snapraid/
+
+## Updating containers
+
+```SHELL
+docker compose pull && docker compose up -d
+```
 
 ## Stopping the swarm
 
