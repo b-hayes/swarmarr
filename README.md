@@ -62,6 +62,7 @@ Open the following links to configure each service:
  - Sonarr       http://localhost:8989
  - Prowlarr     http://localhost:9696
  - Overseerr    http://localhost:5055
+ - Seerr        http://localhost:5056
  - flaresolverr http://localhost:8191
 
  When browsing for paths they should all have `/data` path containing your DATA_ROOT files.
